@@ -4,8 +4,8 @@ const pool = new Pool({
   host: "localhost",
   port: 5432,
   user: "postgres",
-  password: "",
-  database: "",
+  password: "password",
+  database: "databasename",
 });
 
 pool.connect((err) => {
