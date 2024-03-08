@@ -6,10 +6,10 @@ app.use(express.json());
 const question = {
   addQuestion: async (req, res) => {
     try {
-      let { question } = req.body;
+      let { question, language } = req.body;
       const result = await db.query(
-        `INSERT INTO questions (question) VALUES($1)`,
-        [question]
+        `INSERT INTO questions (question,language) VALUES($1,$2)`,
+        [question, language]
       );
       res.json("Success");
     } catch (err) {
