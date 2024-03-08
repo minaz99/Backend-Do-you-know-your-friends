@@ -6,10 +6,10 @@ app.use(express.json());
 const Player = require("./Player");
 
 class Host extends Player {
-  async createGame(username, noOfPlayers, rounds, password) {
+  async createGame(username, language, noOfPlayers, rounds, password) {
     const game = await db.query(
-      `INSERT INTO games(noofplayers,rounds,password,playersjoined,hostid) VALUES($1,$2,$3,$4,$5) RETURNING id`,
-      [noOfPlayers, rounds, password, 0, -1]
+      `INSERT INTO games(noofplayers,rounds,password,playersjoined,hostid,language) VALUES($1,$2,$3,$4,$5,$6) RETURNING id`,
+      [noOfPlayers, rounds, password, 0, -1, language]
     );
     const player = await this.joinGame(username, game.rows[0].id, password);
     await db.query(`UPDATE games SET hostid = $1 WHERE id = $2`, [
