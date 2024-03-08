@@ -38,7 +38,7 @@ class GameFunctions {
         : game.currentround + 1;
     let noofplayers = game.noofplayers;
     let playerGuessing = game.playerguessing;
-    let playersOrder = game.playersorder;    
+    let playersOrder = game.playersorder;
     let playerGuessingIndex = playersOrder
       .split(",")
       .indexOf(playerGuessing.toString());
@@ -79,7 +79,7 @@ class GameFunctions {
     let game = await this.getGameData(gameID);
     let playersGuessed = game.playersguessed;
     let playersCount = game.noofplayers;
-    if (playersGuessed < playersCount) {      
+    if (playersGuessed < playersCount) {
       let playersOrder = game.playersorder;
       let playerBeingGuessed = game.playerbeingguessed;
       let PlayerBeingGuessedIndex = playersOrder
@@ -188,8 +188,10 @@ class GameFunctions {
     ]);
     return question.rows[0];
   };
-  async prepareGame(gameID) {
-    let questions = (await db.query(`SELECT * FROM questions`)).rows;
+  async prepareGame(gameID, language) {
+    let questions = (
+      await db.query(`SELECT * FROM questions where language = $1`, [language])
+    ).rows;
     let players = (
       await db.query(`SELECT * FROM players where gameid = $1`, [gameID])
     ).rows;
