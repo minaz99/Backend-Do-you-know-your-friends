@@ -30,10 +30,14 @@ io.on("connection", (socket) => {
     const playersJoined = gameData.playersjoined;
     const players = await gf.getPlayers(gameID);
     const playersJoinedStr = `${playersJoined}/${playersCount}`;
-    io.in(`room${gameID}`).emit("join", { playersJoinedStr, players });
+    io.in(`room${gameID}`).emit("join", {
+      playersJoinedStr,
+      players,
+      language: gameData.language,
+    });
     if (playersJoined === playersCount) {
       console.log("starting game");
-      await gf.prepareGame(gameID);
+      await gf.prepareGame(gameID, gameData.language);
       let gameDetails = await gf.getGameDetails(gameID);
       io.in(`room${gameID}`).emit("start game", {
         gameDetails: gameDetails,
