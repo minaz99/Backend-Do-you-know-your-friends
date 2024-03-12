@@ -1,11 +1,12 @@
 const { Pool } = require("pg");
 
 const pool = new Pool({
-  host: "localhost",
+  host: "knowyourfriendsdb.cdcykqca66z2.eu-north-1.rds.amazonaws.com",
   port: 5432,
   user: "mina",
-  password: "",
-  database: "knowyourfriends",
+  password: "minabolt99",
+  database: "postgres",
+  ssl: { rejectUnauthorized: false },
 });
 
 pool.connect((err) => {
