@@ -871,7 +871,7 @@ const questions = [
 
 for (let i = 0; i < questions.length; i++) {
   axios
-    .post("http://localhost:3003/question", {
+    .post(`http://localhost:${process.env.SERVER_PORT}/question`, {
       question: questions[i].question,
       language: questions[i].language,
     })
@@ -879,4 +879,4 @@ for (let i = 0; i < questions.length; i++) {
     .catch((error) => console.log(error));
 }
 
-app.listen(3004);
+app.listen(process.env.QUESTIONS_SERVER_PORT);
