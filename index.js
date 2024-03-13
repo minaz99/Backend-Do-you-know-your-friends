@@ -13,8 +13,9 @@ const player = require("./services/player.service");
 const host = require("./services/host.service");
 const questionService = require("./services/question.service");
 app.get("/", (req, res) => {
-  res.sendStatus(200);
+  res.json("Hello :)");
 });
+app.get("/question/:id", questionService.getQ);
 app.post("/question", questionService.addQuestion);
 app.post("/game/join", player.joinGame);
 app.post("/game/create", host.createGame);

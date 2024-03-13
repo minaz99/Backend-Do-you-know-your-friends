@@ -4,6 +4,17 @@ const app = express();
 app.use(express.json());
 
 const question = {
+  getQ: async (req, res) => {
+    try {
+      let { id } = req.params;
+      const result = await db.query(`SELECT * FROM questions where id = $1`, [
+        id,
+      ]);
+      res.json({ question: result.rows[0] });
+    } catch (err) {
+      res.status(404).json({ error: err });
+    }
+  },
   addQuestion: async (req, res) => {
     try {
       let { question, language } = req.body;
