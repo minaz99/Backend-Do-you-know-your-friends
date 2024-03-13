@@ -132,4 +132,4 @@ io.on("connection", (socket) => {
   });
 });
 
-//server.listen(3004), () => console.log("server is running correctly");
+server.listen(3004), () => console.log("server is running correctly");
