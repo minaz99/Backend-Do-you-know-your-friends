@@ -4,10 +4,21 @@ const http = require("node:http");
 const socketIO = require("socket.io");
 const server = http.createServer(app);
 const io = socketIO(server);
+const fs = require("fs");
+const https = require("https");
+const path = require("path");
+const sslServer = https.createServer(
+  {
+    key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
+    cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
+  },
+  app
+);
 require("dotenv").config();
 app.use(express.json());
 var cors = require("cors");
 app.use(cors());
+//const file = fs.readFileSync("./CC384D00CE5C33CABA449CA0E1A00520.txt");
 const GameFunctions = require("./classes/GameFunctions");
 const player = require("./services/player.service");
 const host = require("./services/host.service");
@@ -131,6 +142,8 @@ io.on("connection", (socket) => {
     }
   });
 });
-
-server.listen(process.env.SERVER_PORT),
-  () => console.log("server is running correctly");
+sslServer.listen(process.env.SERVER_PORT, () =>
+  console.log("Secure server is running")
+);
+/*server.listen(process.env.SERVER_PORT),
+  () => console.log("server is running correctly");*/
