@@ -3,7 +3,6 @@ const app = express();
 const http = require("node:http");
 const socketIO = require("socket.io");
 const server = http.createServer(app);
-const io = socketIO(server);
 const fs = require("fs");
 const https = require("https");
 const path = require("path");
@@ -14,6 +13,7 @@ const sslServer = https.createServer(
   },
   app
 );
+const io = socketIO(server);
 require("dotenv").config();
 app.use(express.json());
 var cors = require("cors");
@@ -142,8 +142,8 @@ io.on("connection", (socket) => {
     }
   });
 });
-sslServer.listen(process.env.SERVER_PORT, () =>
+/*sslServer.listen(process.env.SERVER_PORT, () =>
   console.log("Secure server is running")
-);
-/*server.listen(process.env.SERVER_PORT),
-  () => console.log("server is running correctly");*/
+);*/
+server.listen(process.env.SERVER_PORT),
+  () => console.log("server is running correctly");
